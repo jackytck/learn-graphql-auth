@@ -1,12 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 
 class AuthForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func
+  }
+
   state = {
     email: '',
     password: ''
   }
+
   _onEmail = this.onEmail.bind(this)
   _onPassword = this.onPassword.bind(this)
+  _onSubmit = this.onSubmit.bind(this)
 
   onEmail (e) {
     this.setState({ email: e.target.value })
@@ -16,20 +22,26 @@ class AuthForm extends Component {
     this.setState({ password: e.target.value })
   }
 
+  onSubmit (event) {
+    event.preventDefault()
+    const { email, password } = this.state
+    this.props.onSubmit({ email, password })
+  }
+
   render () {
     return (
       <div className='row'>
-        <form className='col s6'>
+        <form className='col s6' onSubmit={this._onSubmit}>
           <div className='input-field'>
-            <label>Email</label>
             <input
+              placeholder='Email'
               value={this.state.email}
               onChange={this._onEmail}
             />
           </div>
           <div className='input-field'>
-            <label>Password</label>
             <input
+              placeholder='Password'
               type='password'
               value={this.state.password}
               onChange={this._onPassword}
