@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react'
+import AuthForm from './AuthForm'
 
 class LoginForm extends Component {
   render () {
     return (
       <div>
-        Login Form
+        <h3>Login</h3>
+        <AuthForm />
       </div>
     )
   }
