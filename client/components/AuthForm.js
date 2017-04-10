@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 class AuthForm extends Component {
   static propTypes = {
+    errors: PropTypes.array,
     onSubmit: PropTypes.func
   }
 
@@ -32,6 +33,11 @@ class AuthForm extends Component {
     return (
       <div className='row'>
         <form className='col s6' onSubmit={this._onSubmit}>
+
+          <div className='errors'>
+            {this.props.errors.map(error => <div key={error}>{error}</div>)}
+          </div>
+
           <div className='input-field'>
             <input
               placeholder='Email'

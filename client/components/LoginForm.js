@@ -8,12 +8,18 @@ class LoginForm extends Component {
   static propTypes = {
     mutate: PropTypes.func
   }
+  state = {
+    errors: []
+  }
   _onSubmit = this.onSubmit.bind(this)
 
   onSubmit ({ email, password }) {
     this.props.mutate({
       variables: { email, password },
       refetchQueries: [{ query }]
+    }).catch(res => {
+      const errors = res.graphQLErrors.map(error => error.message)
+      this.setState({ errors })
     })
   }
 
@@ -21,7 +27,7 @@ class LoginForm extends Component {
     return (
       <div>
         <h3>Login</h3>
-        <AuthForm onSubmit={this._onSubmit} />
+        <AuthForm errors={this.state.errors} onSubmit={this._onSubmit} />
       </div>
     )
   }
